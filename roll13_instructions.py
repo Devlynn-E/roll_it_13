@@ -1,6 +1,8 @@
 
 print("🎲🎲 Roll It 13 🎲🎲")
+
 # defines what is a valid response
+
 yes = ["y", "yes"]
 no = ["n", "no"]
 
@@ -8,6 +10,7 @@ instructions = input("would you like to see instructions? ").lower()
 
 if instructions in no:
     print()
+
 elif instructions in yes:
     print()
     print('''
@@ -36,6 +39,7 @@ elif instructions in yes:
     - The ultimate winner of the game is the first one to get to the specified score goal.
 
     ''')
+
 else:
     print("please answer yes or no to the question")
 
