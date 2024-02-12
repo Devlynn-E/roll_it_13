@@ -1,18 +1,23 @@
 
-while True:
+def int_check(question):
+    while True:
 
-    error = "please enter an integer 13 or above"
-    try:
-        # checks for an integer
-        my_num = int(input("Enter an integer "))
+        error = "please enter an integer 13 or above"
 
-        # checks that the number >= 13
-        if my_num < 13:
+        try:
+            # checks for an integer
+            response = int(input(question))
+
+            # checks that the number >= 13
+            if response >= 13:
+                return response
+
+            else:
+                print(error)
+
+        except ValueError:
             print(error)
-            
-        elif my_num >= 13:
-            print("Your number is ", my_num)
 
-    except ValueError:
-        print(error)
-        
+
+target_score = int_check("enter an integer greater than or equal to 13 ")
+print(target_score)

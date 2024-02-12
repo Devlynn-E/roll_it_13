@@ -42,6 +42,26 @@ def instructions():
         ''')
 
 
+def int_check(question):
+    while True:
+        # checks for an integer above a certain number
+        error = "please enter an integer 13 or above"
+
+        try:
+            # checks for an integer
+            response = int(input(question))
+
+            # checks that the number >= 13
+            if response >= 13:
+                return response
+
+            else:
+                print(error)
+
+        except ValueError:
+            print(error)
+
+
 print("\n🎲🎲 Roll It 13 🎲🎲")
 print()
 
@@ -55,3 +75,4 @@ if wants_instructions == "yes":
     instructions()
 
 # main code
+target_score = int_check("pick an integer ")
