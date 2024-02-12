@@ -1,3 +1,4 @@
+import random
 def yes_no(question):
     # starts loop
     while True:
@@ -60,6 +61,11 @@ def int_check(question):
 
         except ValueError:
             print(error)
+
+
+def roll():
+    result = random.randint(1, 6)
+    return result
 
 
 print("\n🎲🎲 Roll It 13 🎲🎲")
