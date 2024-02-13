@@ -1,6 +1,26 @@
 import random
 
 
+def int_check(question):
+    while True:
+        # checks for an integer above a certain number
+        error = "please enter an integer 13 or above"
+
+        try:
+            # checks for an integer
+            response = int(input(question))
+
+            # checks that the number >= 13
+            if response >= 13:
+                return response
+
+            else:
+                print(error)
+
+        except ValueError:
+            print(error)
+
+
 def yes_no(question):
     # starts loop
     while True:
@@ -46,30 +66,16 @@ def instructions():
         ''')
 
 
-def int_check(question):
-    while True:
-        # checks for an integer above a certain number
-        error = "please enter an integer 13 or above"
-
-        try:
-            # checks for an integer
-            response = int(input(question))
-
-            # checks that the number >= 13
-            if response >= 13:
-                return response
-
-            else:
-                print(error)
-
-        except ValueError:
-            print(error)
+def roll():
+    # grab a random number between 1 - 6
+    result = random.randint(1, 6)
+    return result
 
 
 def two_rolls():
     # rolls 2 dice amd returns total + if we had a double roll
 
-    double_score = False
+    double_score = " not"
 
     # rolls 2 dice
     roll_1 = roll()
@@ -77,7 +83,7 @@ def two_rolls():
 
     # check for double score
     if roll_1 == roll_2:
-        double_score = True
+        double_score = ""
 
     # find total points
     user_points = roll_1 + roll_2
@@ -88,16 +94,10 @@ def two_rolls():
     return user_points, double_score
 
 
-def roll():
-    # grabs a random number from 1 - 6
-    result = random.randint(1, 6)
-    return result
-
-
+# main routine starts here
 print("\n🎲🎲 Roll It 13 🎲🎲")
 print()
 
-# asks user
 wants_instructions = yes_no("Do you want to view the instructions? ")
 
 if wants_instructions == "yes":
@@ -106,5 +106,38 @@ if wants_instructions == "yes":
 
     instructions()
 
-# main code
-target_score = int_check("pick an integer ")
+# get start dice rolls
+# tell the user if they're eligible for double points
+
+dice_error = "please pick 1 or 2 dice"
+
+how_many = int(input("1 or 2 dice? "))
+
+if how_many == 2:
+    start_points = two_rolls()
+    points = start_points[0]
+    double_points = start_points[1]
+
+    print(f"You have {points} points and your{double_points} eligible for double points")
+    print()
+
+elif how_many == 1:
+    start_points = roll()
+    points = start_points
+
+    print(f"You have {points} points")
+    print()
+
+else:
+    print(dice_error)
+    print()
+
+# get start dice rolls for ai
+
+# loop (while both user / ai have <= 13 points
+    # ask user if they want to roll again, update
+    # points / status
+
+    # roll die for ai and update ai points
+
+# outside loop - double user points if they won and are eligible
