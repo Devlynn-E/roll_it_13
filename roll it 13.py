@@ -1,4 +1,6 @@
 import random
+
+
 def yes_no(question):
     # starts loop
     while True:
@@ -29,7 +31,8 @@ def instructions():
 
         - If the computer goes over 13, the round ends and your score is the number of points that you have earned.
 
-        - If the computer gets more points than you eg: you get 10 and they get 11, then you lose your score stays the same 
+        - If the computer gets more points than you eg: you get 10 and they get 11, 
+          then you lose your score stays the same 
 
         - If you get more points than the computer (but less than 14 points), you win and add your points to your score.  
           The computer’s score stays the same. 
@@ -64,6 +67,7 @@ def int_check(question):
 
 
 def roll():
+    # grabs a random number from 1 - 6
     result = random.randint(1, 6)
     return result
 
