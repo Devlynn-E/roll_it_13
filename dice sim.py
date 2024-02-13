@@ -7,10 +7,9 @@ def roll():
     return result
 
 
-# main routine starts here
-for item in range(0, 10):
+def two_rolls():
+    # rolls 2 dice amd returns total + if we had a double roll
 
-    user_score = 0
     double_score = False
 
     # rolls 2 dice
@@ -25,5 +24,33 @@ for item in range(0, 10):
     user_points = roll_1 + roll_2
 
     # show result
-    print(f"Die 1: {roll_1} \t Die 2: {roll_2} \t Points: {user_points}")
-    print(f"Double score opportunity: {double_score}")
+    print(f"Die 1: {roll_1} \t Die 2: {roll_2}")
+
+    return user_points, double_score
+
+
+# main routine starts here
+while True:
+
+    how_many = int(input("1 or 2 dice? "))
+    dice_error = "please pick 1 or 2 dice"
+
+    if how_many == 2:
+        start_points = two_rolls()
+        points = start_points[0]
+        double_points = start_points[1]
+
+        print(f"You have {points} points and a double score of {double_points}")
+        print()
+
+    elif how_many == 1:
+        start_points = roll()
+        points = start_points
+
+        print(f"You have {points} points")
+        print()
+
+    else:
+        print(dice_error)
+        print()
+
