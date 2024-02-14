@@ -21,51 +21,6 @@ def int_check(question):
             print(error)
 
 
-def yes_no(question):
-    # starts loop
-    while True:
-        response = input(question).lower()
-
-        # defines
-        if response == "yes" or response == "y":
-            return "yes"
-        elif response == "no" or response == "n":
-            return "no"
-        else:
-            print("please answer yes or no")
-
-
-def instructions():
-
-    print('''
-
-        **** instructions ****
-
-        At the start of each round, the user and the computer each roll two dice.  
-        The initial number of points for each player is the total shown by the dice.  Then, taking turns, 
-        the user and computer each roll a single die and add the result to their points.  
-        The goal is to get 13 points (or slightly less) for a given round.  
-        Once you are happy with your number of points, you can ‘pass’.
-
-        - If you go over 13, then you lose the round (and get zero points).
-
-        - If the computer goes over 13, the round ends and your score is the number of points that you have earned.
-
-        - If the computer gets more points than you eg: you get 10 and they get 11, 
-          then you lose your score stays the same 
-
-        - If you get more points than the computer (but less than 14 points), you win and add your points to your score.  
-          The computer’s score stays the same. 
-
-        - If the first roll of your dice is a double, then your score is increased by double the number of points,
-          provided you win.  If the computer’s first roll of the dice is a double, then its points are not doubled 
-          (this gives the human player a slight advantage).
-
-        - The ultimate winner of the game is the first one to get to the specified score goal.
-
-        ''')
-
-
 def roll():
     # grab a random number between 1 - 6
     result = random.randint(1, 6)
@@ -75,7 +30,7 @@ def roll():
 def two_rolls():
     # rolls 2 dice amd returns total + if we had a double roll
 
-    double_score = " not"
+    double_score = "no"
 
     # rolls 2 dice
     roll_1 = roll()
@@ -83,7 +38,7 @@ def two_rolls():
 
     # check for double score
     if roll_1 == roll_2:
-        double_score = ""
+        double_score = "yes"
 
     # find total points
     user_points = roll_1 + roll_2
@@ -98,46 +53,68 @@ def two_rolls():
 print("\n🎲🎲 Roll It 13 🎲🎲")
 print()
 
-wants_instructions = yes_no("Do you want to view the instructions? ")
-
-if wants_instructions == "yes":
-
-    # displays instructions
-
-    instructions()
+print("Press <enter> to begin this round")
+input()
 
 # get start dice rolls
+user_first = two_rolls()
+user_points = user_first[0]
+double_points = user_first[1]
+
 # tell the user if they're eligible for double points
-
-dice_error = "please pick 1 or 2 dice"
-
-how_many = int(input("1 or 2 dice? "))
-
-if how_many == 2:
-    start_points = two_rolls()
-    points = start_points[0]
-    double_points = start_points[1]
-
-    print(f"You have {points} points and your{double_points} eligible for double points")
-    print()
-
-elif how_many == 1:
-    start_points = roll()
-    points = start_points
-
-    print(f"You have {points} points")
-    print()
-
+if double_points == "no":
+    double_feedback = ""
 else:
-    print(dice_error)
-    print()
+    double_feedback = "If you win this round, you gain double points!"
+
+# output first move results
+print(f"You rolled a total of {user_points}. {double_feedback}")
 
 # get start dice rolls for ai
+com_first = two_rolls()
+com_points = com_first[0]
+
+print(f'the computer rolled a total of {com_points}.')
 
 # loop (while both user / ai have <= 13 points
+while com_points <= 13 and user_points <= 13:
+
     # ask user if they want to roll again, update
     # points / status
+    print()
+    roll_again = input("Do you want to roll the dice (type no to pass): ")
+    if roll_again == "yes":
+        user_move = roll()
+        user_points += user_move
+        print(f"You rolled a {user_move}. You now have {user_points} points.")
+
+    print("\nPress <enter> to continue...")
+    input()
 
     # roll die for ai and update ai points
+    com_move = roll()
+    com_points += com_move
+    print(f"The computer rolled a {com_move}. The computer"
+          f" now has {com_points}.")
+
+    print()
+    if user_points > com_points:
+        result = "You are ahead."
+    else:
+        result = "The computer is ahead"
+
+    print(f"*** Round Update ***: {result}")
+    print(f"User Score: {user_points} \t | \t Computer Score: {com_points}")
 
 # outside loop - double user points if they won and are eligible
+
+# show rounds result
+if user_points < com_points:
+    print("sorry - you have lost this round and no points "
+          "have been added to your total score. The computer's score has "
+          f"increased by {com_points} points.")
+
+# currently does not include double points
+else:
+    print(f"Yay! You won the round and {user_points} points have "
+          f"been added to your score")
