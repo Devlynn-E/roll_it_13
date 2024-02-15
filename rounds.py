@@ -86,20 +86,46 @@ while com_points < 13 and user_points < 13:
     if roll_again == "yes":
         user_move = roll()
         user_points += user_move
+
+        # if points over 13, resets points and tells the player
+        if user_points > 13:
+            print(f"*** oops! You rolled a {user_move} so your total is {user_points}. "
+                  f"Which is over 13 points. ***")
+
+            user_points = 0
+
+            break
+
+        elif user_points == 13:
+            print(f"!!! Yay! You rolled a {user_move}, so you now have 13 points. "
+                  f"You win! !!!")
+
+            break
+
         print(f"You rolled a {user_move}. You now have {user_points} points.")
 
     print("\nPress <enter> to continue...")
     input()
 
-    # roll die for ai and update ai points
+    # roll die for AI and update AI points
     com_move = roll()
     com_points += com_move
+
+    if com_points > 13:
+        print(f"!!! Yay! The computer rolled a {com_move} and now has {com_points} points. "
+              f"which is over 13 points. !!!")
+
+        com_points = 0
+
+        break
+
     print(f"The computer rolled a {com_move}. The computer"
           f" now has {com_points}.")
 
     print()
-    if user_points > com_points:
+    if com_points < user_points < 13:
         result = "You are ahead."
+
     else:
         result = "The computer is ahead"
 
@@ -109,7 +135,7 @@ while com_points < 13 and user_points < 13:
 # outside loop - double user points if they won and are eligible
 
 # show rounds result
-if user_points < com_points:
+if user_points < com_points <= 13:
     print("sorry - you have lost this round and no points "
           "have been added to your total score. The computer's score has "
           f"increased by {com_points} points.")
