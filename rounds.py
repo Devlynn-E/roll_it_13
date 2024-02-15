@@ -77,7 +77,7 @@ com_points = com_first[0]
 print(f'the computer rolled a total of {com_points}.')
 
 # loop (while both user / ai have <= 13 points
-while com_points <= 13 and user_points <= 13:
+while com_points < 13 and user_points < 13:
 
     # ask user if they want to roll again, update
     # points / status
