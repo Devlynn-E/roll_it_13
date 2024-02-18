@@ -27,7 +27,7 @@ def roll():
     return result
 
 
-def two_rolls():
+def two_rolls(who):
     # rolls 2 dice amd returns total + if we had a double roll
 
     double_score = "no"
@@ -44,7 +44,7 @@ def two_rolls():
     user_points = roll_1 + roll_2
 
     # show result
-    print(f"Die 1: {roll_1} \t Die 2: {roll_2}")
+    print(f"{who}: {roll_1} & {roll_2}")
 
     return user_points, double_score
 
@@ -57,21 +57,18 @@ print("Press <enter> to begin this round")
 input()
 
 # get start dice rolls
-user_first = two_rolls()
+user_first = two_rolls("User")
 user_points = user_first[0]
 double_points = user_first[1]
 
 # tell the user if they're eligible for double points
-if double_points == "no":
-    double_feedback = ""
-else:
-    double_feedback = "If you win this round, you gain double points!"
+if double_points == "yes":
+    print("If you win this round, you gain double points!")
 
 # output first move results
-print(f"You rolled a total of {user_points}. {double_feedback}")
 
 # get start dice rolls for ai
-com_first = two_rolls()
+com_first = two_rolls("Computer")
 com_points = com_first[0]
 
 print(f'the computer rolled a total of {com_points}.')
@@ -123,11 +120,14 @@ while com_points < 13 and user_points < 13:
           f" now has {com_points}.")
 
     print()
-    if com_points < user_points < 13:
+    if com_points < user_points:
         result = "You are ahead."
 
-    else:
+    elif com_points > user_points:
         result = "The computer is ahead"
+
+    else:
+        result = "It's currently a tie."
 
     print(f"*** Round Update ***: {result}")
     print(f"User Score: {user_points} \t | \t Computer Score: {com_points}")
@@ -138,9 +138,17 @@ while com_points < 13 and user_points < 13:
 if user_points < com_points <= 13:
     print("sorry - you have lost this round and no points "
           "have been added to your total score. The computer's score has "
-          f"increased by {com_points} points.")
+          f"increased by {com_points}"
+          f" points.")
 
-# currently does not include double points
-else:
+elif com_points < user_points <= 13:
+    # checks if player is eligible for double points
+    if double_points == "yes":
+        user_points *= 2
+        
     print(f"Yay! You won the round and {user_points} points have "
           f"been added to your score")
+
+else:
+    print(f"Hm... The round ended in a tie and no points have been awarded")
+
