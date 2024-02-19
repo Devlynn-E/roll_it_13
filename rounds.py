@@ -41,20 +41,24 @@ def two_rolls(who):
         double_score = "yes"
 
     # find total points
-    user_points = roll_1 + roll_2
+    total_points = roll_1 + roll_2
 
     # show result
-    print(f"{who}: {roll_1} & {roll_2}")
+    print(f"{who}: {roll_1} & {roll_2} total: {total_points}")
 
-    return user_points, double_score
+    return total_points, double_score
 
 
 # main routine starts here
+
+# starts 'pass' values
+user_pass = "no"
+com_pass = "no"
+
 print("\n🎲🎲 Roll It 13 🎲🎲")
 print()
 
-print("Press <enter> to begin this round")
-input()
+input("Press <enter> to begin this round")
 
 # get start dice rolls
 user_first = two_rolls("User")
@@ -71,15 +75,17 @@ if double_points == "yes":
 com_first = two_rolls("Computer")
 com_points = com_first[0]
 
-print(f'the computer rolled a total of {com_points}.')
-
 # loop (while both user / ai have <= 13 points
 while com_points < 13 and user_points < 13:
 
     # ask user if they want to roll again, update
     # points / status
     print()
-    roll_again = input("Do you want to roll the dice (type no to pass): ")
+    if user_pass == "no":
+        roll_again = input("Do you want to roll the dice (type no to pass): ")
+    else:
+        roll_again = "no"
+
     if roll_again == "yes":
         user_move = roll()
         user_points += user_move
@@ -101,23 +107,28 @@ while com_points < 13 and user_points < 13:
 
         print(f"You rolled a {user_move}. You now have {user_points} points.")
 
-    print("\nPress <enter> to continue...")
-    input()
+    else:
+        # if user passes, we don't ask them again
+        user_pass = "yes"
 
-    # roll die for AI and update AI points
-    com_move = roll()
-    com_points += com_move
+    if com_points >= 10 and com_points >= user_points:
+        com_pass = "yes"
 
-    if com_points > 13:
-        print(f"!!! Yay! The computer rolled a {com_move} and now has {com_points} points. "
-              f"which is over 13 points. !!!")
+    else:
+        # roll die for AI and update AI points
+        com_move = roll()
+        com_points += com_move
 
-        com_points = 0
+        if com_points > 13:
+            print(f"!!! Yay! The computer rolled a {com_move} and now has {com_points} points. "
+                  f"which is over 13 points. !!!")
 
-        break
+            com_points = 0
 
-    print(f"The computer rolled a {com_move}. The computer"
-          f" now has {com_points}.")
+            break
+
+        print(f"The computer rolled a {com_move}. The computer"
+              f" now has {com_points}.")
 
     print()
     if com_points < user_points:
@@ -132,6 +143,9 @@ while com_points < 13 and user_points < 13:
     print(f"*** Round Update ***: {result}")
     print(f"User Score: {user_points} \t | \t Computer Score: {com_points}")
 
+    if com_pass == "yes" and user_pass == "yes":
+        break
+
 # outside loop - double user points if they won and are eligible
 
 # show rounds result
@@ -145,10 +159,11 @@ elif com_points < user_points <= 13:
     # checks if player is eligible for double points
     if double_points == "yes":
         user_points *= 2
-        
+
     print(f"Yay! You won the round and {user_points} points have "
           f"been added to your score")
 
 else:
-    print(f"Hm... The round ended in a tie and no points have been awarded")
+    print(f"Hm... The round ended in a tie and {user_points}"
+          f" have been awarded to everybody")
 
