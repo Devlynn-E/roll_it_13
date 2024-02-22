@@ -114,6 +114,9 @@ while com_points < 13 and user_points < 13:
     if com_points >= 10 and com_points >= user_points:
         com_pass = "yes"
 
+    elif com_pass == "yes":
+        pass
+
     else:
         # roll die for AI and update AI points
         com_move = roll()
