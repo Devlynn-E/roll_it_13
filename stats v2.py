@@ -27,8 +27,6 @@ com_scores = [10, 6, 7, 12, 6, 7]
 # calculate the lowest, highest and average
 # scores and display them.
 
-# start the lists
-
 user_stats = get_stats(user_scores)
 com_stats = get_stats(com_scores)
 
