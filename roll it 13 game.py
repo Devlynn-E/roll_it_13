@@ -77,7 +77,7 @@ def instructions():
 
     print('''
 
-        **** instructions ****
+        **** Instructions ****
 
         At the start of each round, the user and the computer each roll two dice.  
         The initial number of points for each player is the total shown by the dice.  Then, taking turns, 
@@ -141,7 +141,7 @@ while user_score < target_score and com_score < target_score:
     user_pass = "no"
     com_pass = "no"
 
-    input("Press <enter> to begin this round")
+    input("\nPress <enter> to begin this round")
 
     # get start dice rolls
     user_first = two_rolls("User")
@@ -168,7 +168,7 @@ while user_score < target_score and com_score < target_score:
 
         print()
         if user_pass == "no":
-            roll_again = yes_no("Do you want to roll the dice (type no to pass): ")
+            roll_again = yes_no("\nDo you want to roll the dice (type no to pass): ")
 
         else:
             roll_again = "no"
@@ -179,7 +179,7 @@ while user_score < target_score and com_score < target_score:
 
             # if points over 13, resets points and tells the player
             if user_points > 13:
-                print(f"*** oops! You rolled a {user_move} so your total is {user_points}. "
+                print(f"\n*** oops! You rolled a {user_move} so your total is {user_points}. "
                       f"Which is over 13 points. ***")
 
                 user_points = 0
@@ -187,12 +187,12 @@ while user_score < target_score and com_score < target_score:
                 break
 
             elif user_points == 13:
-                print(f"!!! Yay! You rolled a {user_move}, so you now have 13 points. "
+                print(f"\n!!! Yay! You rolled a {user_move}, so you now have 13 points. "
                       f"You win! !!!")
 
                 break
 
-            print(f"You rolled a {user_move}. You now have {user_points} points.")
+            print(f"\nYou rolled a {user_move}. You now have {user_points} points.")
 
         else:
             # if user passes, we don't ask them again
@@ -210,14 +210,14 @@ while user_score < target_score and com_score < target_score:
             com_points += com_move
 
             if com_points > 13:
-                print(f"!!! Yay! The computer rolled a {com_move} and now has {com_points} points. "
+                print(f"\n!!! Yay! The computer rolled a {com_move} and now has {com_points} points. "
                       f"which is over 13 points. !!!")
 
                 com_points = 0
 
                 break
 
-            print(f"The computer rolled a {com_move}. The computer"
+            print(f"\nThe computer rolled a {com_move}. The computer"
                   f" now has {com_points}.")
 
         print()
@@ -230,7 +230,7 @@ while user_score < target_score and com_score < target_score:
         else:
             result = "It's currently a tie."
 
-        print(f"*** Round Update ***: {result}")
+        print(f"\n*** Round Update ***: {result}")
         print(f"User Score: {user_points} \t | \t Computer Score: {com_points}")
 
         if com_pass == "yes" and user_pass == "yes":
@@ -240,7 +240,7 @@ while user_score < target_score and com_score < target_score:
 
     # show rounds result
     if user_points < com_points <= 13:
-        print("sorry - you have lost this round and no points "
+        print("\nsorry - you have lost this round and no points "
               "have been added to your total score."
               f" The computer's score has "
               f"increased by {com_points}"
@@ -253,19 +253,22 @@ while user_score < target_score and com_score < target_score:
         if double_points == "yes":
             user_points *= 2
 
-        print(f"Yay! You won the round and {user_points} points have "
+        print(f"\nYay! You won the round and {user_points} points have "
               f"been added to your score")
 
         add_points = user_points
 
     else:
-        print(f"Hm... The round ended in a tie and {user_points}"
+        print(f"\nHm... The round ended in a tie and {user_points}"
               f" have been awarded to everybody")
 
         add_points = user_points
 
     # record round result and add to history
     round_result = f"Round {num_rounds} - User: {user_points} \t Computer: {com_points}"
+    print(round_result)
+    print()
+
     game_history.append(round_result)
 
     # end of a single round
@@ -307,9 +310,11 @@ if show_history == "yes":
 # scores and display them.
 
 user_stats = get_stats(user_scores)
+print("User scores: ", user_score)
 com_stats = get_stats(com_scores)
+print("Com scores", com_score)
 
-print("📊📊📊 Game Statistics 📊📊📊 ")
+print("\n📊📊📊 Game Statistics 📊📊📊 ")
 print(f"\nUser - Lowest score: {user_stats[0]}\t "
       f"Highest score: {user_stats[1]}\t "
       f"Average score: {user_stats[2]:.2f}")
